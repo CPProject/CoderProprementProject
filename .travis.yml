@@ -53,6 +53,7 @@ install:
   - sdkmanager --list || true
   # Update sdk tools to latest version and install/update components
   - echo yes | sdkmanager "tools"
+  - echo yes | sdkmanager "platforms;android-28"
   - echo yes | sdkmanager "platforms;android-${API}" # Android platform required by emulator
   - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
   - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
