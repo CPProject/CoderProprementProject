@@ -24,7 +24,7 @@ android:
 
 env:
   global:
-    - API=28 # Android API level 28 by default
+    - API=19 # Android API level 19 by default
     - TAG=google_apis # Google APIs by default, alternatively use default
     - ABI=armeabi-v7a # ARM ABI v7a by default
     - QEMU_AUDIO_DRV=none # Disable emulator audio to avoid warning
@@ -36,6 +36,9 @@ env:
 
 matrix:
   include: # More Emulator API levels to build in parallel
+    - env: API=27
+    - env: API=26
+    - env: API=25
     - env: API=24
     - env: API=23
     - env: API=22
