@@ -1,6 +1,6 @@
 language: android
 notifications:
-  email: false
+  email: true
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y pax
