@@ -1,10 +1,13 @@
 language: android
+jdk: oraclejdk8
 android:
   components:
     - build-tools-28.0.3
     - android-28
     - add-on
     - extra
+    - extra-google-m2repository
+    - extra-android-m2repository
   licenses:
     - 'android-sdk-preview-license-52d11cd2'
     - 'android-sdk-license-.+'
@@ -17,12 +20,8 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
     - $HOME/.android/build-cache
-# Emulator Management: Create, Start and Wait
 before_script:
-  - echo no | android create avd --force -n test -t android-28 --abi armeabi-v8a
-  - emulator -avd test -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
+  - chmod 755 ./gradlew
+  - chmod 755 ./build-apk.sh
 script:
-  # Run all device checks
-  - ./gradlew connectedCheck -x library:signArchives -PdisablePreDex
+  - ./gradlew testDebugUnitTest
