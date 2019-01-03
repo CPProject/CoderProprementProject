@@ -1,7 +1,10 @@
 package com.lpiem.coderpropmarvelapp.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ComicItem {
     private final String title;
@@ -42,6 +45,13 @@ public class ComicItem {
         return date;
     }
 
+    public String getFormatedDate() {
+        DateFormat formatDay = new SimpleDateFormat("EEEE d MMMM yyyy", Locale.FRANCE);
+        String formatedDate = formatDay.format(date);
+        formatedDate = formatedDate.substring(0,1).toUpperCase().concat(formatedDate.substring(1, formatedDate.length()));
+        return formatedDate;
+    }
+
     public List<Creator> getCreators() {
         return creators;
     }
@@ -57,7 +67,7 @@ public class ComicItem {
                 ", description='" + getDescription() + '\'' +
                 ", image='" + getImage() + '\'' +
                 ", diamondCode='" + getDiamondCode() + '\'' +
-                ", date=" + getDate() +
+                ", date=" + getFormatedDate() +
                 ", creators=" + getCreators() +
                 ", pageCount=" + getPageCount() +
                 '}';
