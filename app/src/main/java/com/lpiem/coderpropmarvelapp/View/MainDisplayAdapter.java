@@ -1,17 +1,30 @@
-package com.lpiem.coderpropmarvelapp;
+package com.lpiem.coderpropmarvelapp.View;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lpiem.coderpropmarvelapp.R;
+import com.lpiem.coderpropmarvelapp.model.ComicItem;
+
+import java.util.List;
+
 public class MainDisplayAdapter extends RecyclerView.Adapter<MainDisplayAdapter.CustomViewHolder> {
 
+    private List<ComicItem> comicItemList;
+    private ComicItem comicItem;
+
+    public MainDisplayAdapter(List<ComicItem> comicItemList) {
+        this.comicItemList = comicItemList;
+    }
 
     @NonNull
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return null;
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_comic_item, viewGroup,false);
+        return new CustomViewHolder(view);
     }
 
     @Override
