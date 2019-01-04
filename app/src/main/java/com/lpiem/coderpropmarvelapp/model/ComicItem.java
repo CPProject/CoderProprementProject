@@ -1,12 +1,13 @@
 package com.lpiem.coderpropmarvelapp.model;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class ComicItem {
+public class ComicItem implements Serializable {
     private final String title;
     private final String description;
     private final String image;
@@ -62,14 +63,27 @@ public class ComicItem {
 
     @Override
     public String toString() {
-        return "ComicItem{" +
-                "title='" + getTitle() + '\'' +
-                ", description='" + getDescription() + '\'' +
-                ", image='" + getImage() + '\'' +
-                ", diamondCode='" + getDiamondCode() + '\'' +
-                ", date=" + getFormatedDate() +
-                ", creators=" + getCreators() +
-                ", pageCount=" + getPageCount() +
-                '}';
+        return new StringBuilder()
+                .append("ComicItem{")
+                .append("title='")
+                .append(getTitle())
+                .append('\'')
+                .append(", description='")
+                .append(getDescription())
+                .append('\'')
+                .append(", image='")
+                .append(getImage())
+                .append('\'')
+                .append(", diamondCode='")
+                .append(getDiamondCode())
+                .append('\'')
+                .append(", date=")
+                .append(getFormatedDate())
+                .append(", creators=")
+                .append(getCreators())
+                .append(", pageCount=")
+                .append(getPageCount())
+                .append('}')
+                .toString();
     }
 }
