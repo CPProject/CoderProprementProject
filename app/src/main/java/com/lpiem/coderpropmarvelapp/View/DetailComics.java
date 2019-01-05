@@ -23,7 +23,7 @@ public class DetailComics extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailcomics);
 
-        imageView       =       findViewById(R.id.ComicImage);
+        imageView       =       findViewById(R.id.Comicimage);
         title           =       findViewById(R.id.Comictitle);
         summary         =       findViewById(R.id.Comicsummary);
         information     =       findViewById(R.id.Comicinformation);
