@@ -30,6 +30,10 @@ public class MainDisplayAdapter extends RecyclerView.Adapter<MainDisplayAdapter.
         comicItemList = newList;
     }
 
+    public List<ComicItem> getComicItemList() {
+        return comicItemList;
+    }
+
     @NonNull
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

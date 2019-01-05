@@ -22,12 +22,12 @@ public class ComicListPresenter {
     private final List<ComicItem> listComics;
     private final MainDisplayAdapter comicsListAdapter;
 
-    public ComicListPresenter(ComicsManager comicsManager, Context context, RecyclerView rv) {
+    public ComicListPresenter(ComicsManager comicsManager, Context context, RecyclerView rv, MainDisplayAdapter adapter) {
         this.comicsManager = comicsManager;
         this.context = context;
         listComics = new ArrayList<>();
         recyclerView = rv;
-        comicsListAdapter = new MainDisplayAdapter(listComics);
+        comicsListAdapter = adapter;
     }
 
     public void updateView(){

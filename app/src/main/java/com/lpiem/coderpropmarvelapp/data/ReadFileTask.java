@@ -4,12 +4,10 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.lpiem.coderpropmarvelapp.App;
 import com.lpiem.coderpropmarvelapp.View.activities.MainDisplayAdapter;
-import com.lpiem.coderpropmarvelapp.View.activities.RecyclerTouchListener;
 import com.lpiem.coderpropmarvelapp.model.ComicItem;
 import com.lpiem.coderpropmarvelapp.model.Creator;
 
@@ -85,28 +83,8 @@ public class ReadFileTask extends AsyncTask<Object, Void, Integer> {
             for (ComicItem comicItem : comicItems) {
                 builder.append(comicItem.getTitle() + "\n");
             }
-            Toast.makeText(context, builder.toString(), Toast.LENGTH_LONG).show();
 
             adapter.setComicItemList(comicItems);
-
-            recyclerView.addOnItemTouchListener(new RecyclerTouchListener(context, recyclerView, new RecyclerTouchListener.ClickListener() {
-                @Override
-                public void onClick(View view, int position) {
-                    ComicItem item = comicItems.get(position);
-                    app.getComicsManager().setCurrentComics(item);
-                    Log.d(TAG, "touchListener : " + item.toString());
-                    //TODO: method passing to an interface the trigger to the detail activity
-                    // passing data to the DetailDisplay Activity
-//                        Intent intent = new Intent(context, DetailComics.class);
-//                        context.startActivity(intent);
-                }
-
-                @Override
-                public void onLongClick(View view, int position) {
-                    ComicItem item = comicItems.get(position);
-                    Toast.makeText(context, item.getTitle(), Toast.LENGTH_SHORT).show();
-                }
-            }));
 
             adapter.notifyDataSetChanged();
         } else {
