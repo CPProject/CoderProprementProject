@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.lpiem.coderpropmarvelapp.R;
-import com.lpiem.coderpropmarvelapp.ReadFileTask;
+import com.lpiem.coderpropmarvelapp.data.ReadFileTask;
 import com.lpiem.coderpropmarvelapp.model.ComicItem;
 
 import java.util.ArrayList;

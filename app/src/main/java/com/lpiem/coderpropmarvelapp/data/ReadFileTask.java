@@ -1,4 +1,4 @@
-package com.lpiem.coderpropmarvelapp;
+package com.lpiem.coderpropmarvelapp.data;
 
 import android.content.Context;
 import android.os.AsyncTask;
