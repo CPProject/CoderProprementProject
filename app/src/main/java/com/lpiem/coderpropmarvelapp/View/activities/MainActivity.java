@@ -1,4 +1,4 @@
-package com.lpiem.coderpropmarvelapp.View;
+package com.lpiem.coderpropmarvelapp.View.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,8 +6,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.lpiem.coderpropmarvelapp.App;
 import com.lpiem.coderpropmarvelapp.R;
-import com.lpiem.coderpropmarvelapp.data.ReadFileTask;
+import com.lpiem.coderpropmarvelapp.View.presenters.ComicListPresenter;
 import com.lpiem.coderpropmarvelapp.model.ComicItem;
 
 import java.util.ArrayList;
@@ -17,10 +18,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static final String TAG = "MainActivity";
-    private final String SAMPLE_OK = "sample-ok.json";
-    private final String SAMPLE_KO = "sample-ko.json";
+    public static final String SAMPLE_OK = "sample-ok.json";
+    public static final String SAMPLE_KO = "sample-ko.json";
     protected MainDisplayAdapter adapter;
     protected RecyclerView recyclerView;
+    private App app = App.application();
+    private ComicListPresenter comicListPresenter;
 
     private final List<ComicItem> comicItems = new ArrayList<>();
 
@@ -33,9 +36,13 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
 
         // launching the AsynchTask
-        new ReadFileTask(this, adapter, recyclerView).execute(SAMPLE_OK, comicItems);
+
+        comicListPresenter = new ComicListPresenter(App.application().getComicsManager(), this, recyclerView);
+        comicListPresenter.updateView();
+        //app.getComicsManager().callAsyncTask(SAMPLE_OK, comicItems, getApplicationContext(), adapter, recyclerView);
 
 
     }

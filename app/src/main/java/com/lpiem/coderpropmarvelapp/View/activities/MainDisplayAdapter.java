@@ -1,4 +1,4 @@
-package com.lpiem.coderpropmarvelapp.View;
+package com.lpiem.coderpropmarvelapp.View.activities;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +24,10 @@ public class MainDisplayAdapter extends RecyclerView.Adapter<MainDisplayAdapter.
 
     public MainDisplayAdapter(List<ComicItem> comicItemList) {
         this.comicItemList = comicItemList;
+    }
+
+    public void setComicItemList(List<ComicItem> newList) {
+        comicItemList = newList;
     }
 
     @NonNull

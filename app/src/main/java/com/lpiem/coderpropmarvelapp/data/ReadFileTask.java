@@ -7,8 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.lpiem.coderpropmarvelapp.View.MainDisplayAdapter;
-import com.lpiem.coderpropmarvelapp.View.RecyclerTouchListener;
+import com.lpiem.coderpropmarvelapp.App;
+import com.lpiem.coderpropmarvelapp.View.activities.MainDisplayAdapter;
+import com.lpiem.coderpropmarvelapp.View.activities.RecyclerTouchListener;
 import com.lpiem.coderpropmarvelapp.model.ComicItem;
 import com.lpiem.coderpropmarvelapp.model.Creator;
 
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.lpiem.coderpropmarvelapp.View.MainActivity.TAG;
+import static com.lpiem.coderpropmarvelapp.View.activities.MainActivity.TAG;
 
 public class ReadFileTask extends AsyncTask<Object, Void, Integer> {
 
@@ -37,17 +38,15 @@ public class ReadFileTask extends AsyncTask<Object, Void, Integer> {
     private List<ComicItem> comicItems = new ArrayList<>();
     private static final String url = "https://gateway.marvel.com:443/v1/public/comics/item?ts=1524161673&apikey=2fb3c607374cd614f32c819c48e9db0c&hash=4da7ecb9bd380ff6092e35da2a123cc7";
 
-
-    public ReadFileTask(Context context, MainDisplayAdapter adapter, RecyclerView recyclerView) {
-        this.context = context;
-        this.adapter = adapter;
-        this.recyclerView = recyclerView;
-    }
+    private App app = App.application();
 
     @Override
     protected Integer doInBackground(Object... params) {
         int result = -1;
         comicItems = (List<ComicItem>) params[1];
+        context = (Context) params[2];
+        adapter = (MainDisplayAdapter) params[3];
+        recyclerView = (RecyclerView) params[4];
         try {
             final InputStream inputStream = context.getResources().getAssets().open((String) params[0]);
 
@@ -88,18 +87,18 @@ public class ReadFileTask extends AsyncTask<Object, Void, Integer> {
             }
             Toast.makeText(context, builder.toString(), Toast.LENGTH_LONG).show();
 
-            adapter = new MainDisplayAdapter(comicItems);
-            recyclerView.setAdapter(adapter);
+            adapter.setComicItemList(comicItems);
 
             recyclerView.addOnItemTouchListener(new RecyclerTouchListener(context, recyclerView, new RecyclerTouchListener.ClickListener() {
                 @Override
                 public void onClick(View view, int position) {
                     ComicItem item = comicItems.get(position);
+                    app.getComicsManager().setCurrentComics(item);
                     Log.d(TAG, "touchListener : " + item.toString());
+                    //TODO: method passing to an interface the trigger to the detail activity
                     // passing data to the DetailDisplay Activity
-//                        Intent intent = new Intent(MainActivity.this, DetailDisplay.class);
-//                        intent.putExtra("title", item);
-//                        startActivity(intent);
+//                        Intent intent = new Intent(context, DetailComics.class);
+//                        context.startActivity(intent);
                 }
 
                 @Override

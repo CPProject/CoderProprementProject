@@ -1,13 +1,11 @@
-package com.lpiem.coderpropmarvelapp.View;
+package com.lpiem.coderpropmarvelapp.View.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.lpiem.coderpropmarvelapp.R;
-import com.squareup.picasso.Picasso;
 
 public class DetailComics extends AppCompatActivity {
 

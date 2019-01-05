@@ -1,4 +1,4 @@
-package com.lpiem.coderpropmarvelapp.View;
+package com.lpiem.coderpropmarvelapp.View.activities;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
