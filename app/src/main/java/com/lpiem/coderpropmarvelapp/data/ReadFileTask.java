@@ -172,7 +172,7 @@ public class ReadFileTask extends AsyncTask<Object, Void, Integer> {
 
                                 resp = jsonResults2.getJSONObject(0);
                                 jsonResults2  = resp.getJSONArray("images");
-                                image = jsonResults2.getJSONObject(0).getString("path").concat(".jpg");
+                                image = jsonResults2.getJSONObject(0).getString("path").concat(".jpg").concat("?ts=1524161673&apikey=2fb3c607374cd614f32c819c48e9db0c&hash=4da7ecb9bd380ff6092e35da2a123cc7");
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
