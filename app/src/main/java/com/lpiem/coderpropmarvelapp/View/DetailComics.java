@@ -3,7 +3,6 @@ package com.lpiem.coderpropmarvelapp.View;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ActionMode;
@@ -12,10 +11,9 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 import com.lpiem.coderpropmarvelapp.R;
-import com.squareup.picasso.Picasso;
 
 public class DetailComics extends AppCompatActivity {
 
@@ -33,16 +31,15 @@ public class DetailComics extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailcomics);
 
-        imageView       =       findViewById(R.id.Comicimage);
-        title           =       findViewById(R.id.Comictitle);
-        summary         =       findViewById(R.id.Comicsummary);
-        information     =       findViewById(R.id.Comicinformation);
-        credits         =       findViewById(R.id.Comiccredits);
+        imageView = findViewById(R.id.Comicimage);
+        title = findViewById(R.id.Comictitle);
+        summary = findViewById(R.id.Comicsummary);
+        information = findViewById(R.id.Comicinformation);
+        credits = findViewById(R.id.Comiccredits);
 
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.marvel_logo);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setSubtitle("Using ToolBar");
+        getSupportActionBar().setSubtitle("Detail of Comic");
 
     }
 
@@ -61,13 +58,15 @@ public class DetailComics extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.action_share:
-                mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+                //mShareActionProvider = (ShareActionProvider) item.getActionProvider();
                 Intent myShareIntent = new Intent(Intent.ACTION_SEND);
-                myShareIntent.setType("image/*");
+                myShareIntent.setType("text/*");
+                Toast.makeText(this, "share", Toast.LENGTH_SHORT).show();
                 /* ci-dessous, j'ai mis un peu n'imp pour que ça mette pas de rouge... mais je ne crois pas qu'on récupère l'url de l'image comme cela loul */
                 myShareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imageView.toString()));
                 myShareIntent.putExtra(Intent.EXTRA_STREAM, title.toString());
-                mShareActionProvider.setShareIntent(myShareIntent);
+                startActivity(myShareIntent);
+                //mShareActionProvider.setShareIntent(myShareIntent);
                 return true;
         }
 

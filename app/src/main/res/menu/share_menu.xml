@@ -4,14 +4,15 @@
 
     <item
         android:id="@+id/action_back"
-        android:orderInCategory="100"
         app:showAsAction="always"
+        android:icon="@drawable/ic_arrow_back_black_24dp"
         android:title="@string/action_back">
     </item>
 
     <item android:id="@+id/action_share"
         android:title="@string/action_share"
         app:showAsAction="ifRoom"
-        app:actionProviderClass="android.support.v7.widget.ShareActionProvider"/>
+        android:iconTint="@android:color/white"
+        android:icon="@drawable/ic_share_black_24dp"/>
 
 </menu>
