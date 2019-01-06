@@ -27,26 +27,29 @@ public class ComicsManager {
 
     public String getCurrentComicsCreators(){
         StringBuilder textToReturn = new StringBuilder();
-        for(int position =0; position<currentComics.getCreators().size(); position++) {
+        textToReturn.append("Créateurs:\n");
+        for(int position =0; position<getComicsCreators().size(); position++) {
             if (position > 0) {
                 textToReturn.append("\n");
             }
             textToReturn
-                    .append(currentComics.getCreators().get(position).getName())
-                    .append(" - ").append(currentComics.getCreators().get(position).getRole());
+                    .append(getComicsCreators().get(position).getName())
+                    .append(" - ").append(getComicsCreators().get(position).getRole());
         }
         return textToReturn.toString();
     }
 
     public String getCurrentComicsInformations(){
         StringBuilder textToReturn = new StringBuilder();
-        textToReturn.append(currentComics.getFormatedDate()).append("\nPrice: ");
         textToReturn
-                .append(currentComics.getFormattedPrice())
+                .append("Date: ")
+                .append(getCurrentComicsDate()).append("\nPrice: ");
+        textToReturn
+                .append(getFormattedPrice())
                 .append(" , Pages: ")
-                .append(currentComics.getPageCount())
+                .append(getCurrentComicsPageCount())
                 .append(" - DiamondCode: ")
-                .append(currentComics.getDiamondCode());
+                .append(getCurrentComicsDiamondCode());
 
         return textToReturn.toString();
     }
@@ -65,6 +68,10 @@ public class ComicsManager {
 
     public int getCurrentComicsPageCount() {
         return currentComics.getPageCount();
+    }
+
+    public String getFormattedPrice() {
+        return currentComics.getFormattedPrice();
     }
 
     public String getCurrentComicsTitle() {

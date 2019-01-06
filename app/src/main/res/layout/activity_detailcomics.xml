@@ -6,17 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="?actionBarSize"
-        app:layout_constraintBottom_toTopOf="@id/rv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" />
+    <include layout="@layout/my_toolbar"/>
 
     <TextView
         android:id="@+id/Comictitle"
@@ -25,17 +15,17 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        tools:text="title"
         android:text="title"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        style="@style/TitleStyle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        tools:text="title" />
 
     <ImageView
         android:id="@+id/Comicimage"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="0dp"
+        android:layout_height="215dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
@@ -45,20 +35,25 @@
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Comictitle"
+        app:layout_constraintVertical_bias="0.65"
         app:srcCompat="@drawable/marvel_logo" />
 
     <TextView
         android:id="@+id/Comicsummary"
+        style="@style/DescriptionTvStyle"
+        android:scrollbars = "vertical"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="330dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:isScrollContainer="true"
-        android:minHeight="150dp"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque, libero eget efficitur accumsan, erat felis interdum dui, id malesuada metus sapien a ante. Phasellus quis maximus augue. Duis a imperdiet nisi, ut eleifend risus. Nullam fermentum nisi ex, at imperdiet diam rutrum nec."
+        android:gravity="center"
+        android:minHeight="180dp"
+        android:overScrollMode="always"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Comicimage"
-        app:layout_constraintTop_toBottomOf="@+id/Comictitle" />
+        app:layout_constraintTop_toBottomOf="@+id/Comictitle"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque, libero eget efficitur accumsan, erat felis interdum dui, id malesuada metus sapien a ante. Phasellus quis maximus augue. Duis a imperdiet nisi, ut eleifend risus. Nullam fermentum nisi ex, at imperdiet diam rutrum nec." />
 
     <TextView
         android:id="@+id/Comicinformation"
@@ -68,6 +63,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:text="informations"
+        style="@style/tvStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Comicsummary"
@@ -81,6 +77,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:text="credits"
+        style="@style/tvStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Comicinformation"

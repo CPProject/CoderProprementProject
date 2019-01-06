@@ -14,6 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -56,6 +57,8 @@ public class DetailComics extends AppCompatActivity implements ComicDetailInterf
         information = findViewById(R.id.Comicinformation);
         credits = findViewById(R.id.Comiccredits);
 
+        summary.setMovementMethod(new ScrollingMovementMethod());
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setSubtitle("Detail of Comic");
@@ -82,10 +85,8 @@ public class DetailComics extends AppCompatActivity implements ComicDetailInterf
                 } else {
                 requestStoragePermission();
                 }
-
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -139,7 +140,6 @@ public class DetailComics extends AppCompatActivity implements ComicDetailInterf
                 } else {
                     Toast.makeText(this, "Storage permission is required for sending picture by eMail", Toast.LENGTH_LONG)
                             .show();
-
                     requestStoragePermission();
                 }
             }

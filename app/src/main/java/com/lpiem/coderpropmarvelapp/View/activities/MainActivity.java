@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements ComicsListInterfa
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.app_name);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setSubtitle("Using ToolBar");
+        getSupportActionBar().setSubtitle("Welcome !");
 
         recyclerView = findViewById(R.id.rv);
 
