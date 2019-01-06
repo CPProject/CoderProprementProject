@@ -19,9 +19,7 @@ public class Creator {
 
     @Override
     public String toString() {
-        return "Creator{" +
-                "name='" + getName() + '\'' +
-                ", role='" + getRole() + '\'' +
-                '}';
+        return "name ='" + getName() + '\'' +
+                ", rol e='" + getRole() + '\'';
     }
 }

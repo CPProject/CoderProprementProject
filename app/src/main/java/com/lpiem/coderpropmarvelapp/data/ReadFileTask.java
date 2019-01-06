@@ -104,11 +104,13 @@ public class ReadFileTask extends AsyncTask<Object, Void, Integer> {
                 for(int i = 0; i < jsonResults.length(); i++) {
 
                     JSONObject oneComicItem = jsonResults.getJSONObject(i);
+                    int id = oneComicItem.getInt("id");
                     String title = oneComicItem.getString("title");
                     String description = oneComicItem.getString("description");
                     String diamondCode = oneComicItem.getString("diamondCode");
                     String image = oneComicItem.getString("image");
                     String dateFromJSON = oneComicItem.getString("date");
+                    Double price = oneComicItem.getDouble("price");
                     int pageCount = oneComicItem.getInt("pageCount");
                     JSONArray jsonCreators = oneComicItem.getJSONArray("creators");
                     List<Creator> creators = new ArrayList<>();
@@ -158,7 +160,21 @@ public class ReadFileTask extends AsyncTask<Object, Void, Integer> {
                         Log.d(TAG, e.getLocalizedMessage());
                     }
 
-                    ComicItem comicItem = new ComicItem(title, description, image, diamondCode, date, creators, pageCount);
+                    StringBuilder webUrl = new StringBuilder();
+                    webUrl.append("https://www.marvel.com/comics/issue//");
+                    webUrl.insert(36, String.valueOf(id));
+                    webUrl.append(title.replace(" ", "_")
+                            .replace("#", "")
+                            .replace("(", "")
+                            .replace(")", "")
+                    );
+
+//                    webUrl.replace(" ", "_");
+//                    webUrl.replace("(", "");
+//                    webUrl.replace(")", "");
+//                    webUrl.replace("#", "");
+
+                    ComicItem comicItem = new ComicItem(title, description, image, diamondCode, date, creators, pageCount, price, webUrl.toString());
 
                     comicItems.add(comicItem);
                 }
