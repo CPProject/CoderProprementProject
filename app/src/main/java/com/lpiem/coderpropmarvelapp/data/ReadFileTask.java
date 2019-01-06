@@ -17,8 +17,6 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,6 +32,7 @@ public class ReadFileTask extends AsyncTask<Object, Void, Integer> {
     private static final String url = "https://gateway.marvel.com:443/v1/public/comics/item?ts=1524161673&apikey=2fb3c607374cd614f32c819c48e9db0c&hash=4da7ecb9bd380ff6092e35da2a123cc7";
     private MainDisplayAdapter adapter;
     private App app = App.application();
+    private static final int REQUEST_READ_STORAGE = 0;
 
     @Override
     protected Integer doInBackground(Object... params) {
@@ -123,59 +122,9 @@ public class ReadFileTask extends AsyncTask<Object, Void, Integer> {
                     }
 
                     Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(dateFromJSON);
+                    String webUrl = setWebUrl(id, title);
 
-
-                    // grab images online with api key
-                    HttpURLConnection urlConnection;
-                    try {
-                        URL siteUrl = new URL(url.replace("item", oneComicItem.getString("id")));
-                        urlConnection = (HttpURLConnection) siteUrl.openConnection();
-                        int statusCode = urlConnection.getResponseCode();
-
-                        if (statusCode == 200) {
-                            BufferedReader r = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                            StringBuilder response = new StringBuilder();
-                            String line;
-                            while ((line = r.readLine()) != null) {
-                                response.append(line);
-                            }
-
-                            try {
-                                JSONObject jsonResponse2 = new JSONObject(response.toString());
-
-                                JSONObject resp = jsonResponse2.getJSONObject("data");
-                                JSONArray jsonResults2 = resp.getJSONArray("results");
-
-                                resp = jsonResults2.getJSONObject(0);
-                                jsonResults2  = resp.getJSONArray("images");
-                                image = jsonResults2.getJSONObject(0).getString("path").concat(".jpg").concat("?ts=1524161673&apikey=2fb3c607374cd614f32c819c48e9db0c&hash=4da7ecb9bd380ff6092e35da2a123cc7");
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-
-                    } catch (Exception e) {
-                        Log.d(TAG, e.getLocalizedMessage());
-                    }
-
-                    StringBuilder webUrl = new StringBuilder();
-                    webUrl.append("https://www.marvel.com/comics/issue//");
-                    webUrl.insert(36, String.valueOf(id));
-                    webUrl.append(title.replace(" ", "_")
-                            .replace("#", "")
-                            .replace("(", "")
-                            .replace(")", "")
-                    );
-
-//                    webUrl.replace(" ", "_");
-//                    webUrl.replace("(", "");
-//                    webUrl.replace(")", "");
-//                    webUrl.replace("#", "");
-
-                    ComicItem comicItem = new ComicItem(title, description, image, diamondCode, date, creators, pageCount, price, webUrl.toString());
-
+                    ComicItem comicItem = new ComicItem(title, description, image, diamondCode, date, creators, pageCount, price, webUrl);
                     comicItems.add(comicItem);
                 }
                 parsingResult = 1;
@@ -188,6 +137,18 @@ public class ReadFileTask extends AsyncTask<Object, Void, Integer> {
             e.printStackTrace();
         }
         return parsingResult;
+    }
+
+    private String setWebUrl(int id, String title) {
+        StringBuilder webUrl = new StringBuilder();
+        webUrl.append("https://www.marvel.com/comics/issue//");
+        webUrl.insert(36, String.valueOf(id));
+        webUrl.append(title.replace(" ", "_")
+                .replace("#", "")
+                .replace("(", "")
+                .replace(")", "")
+        );
+        return webUrl.toString();
     }
 
 
