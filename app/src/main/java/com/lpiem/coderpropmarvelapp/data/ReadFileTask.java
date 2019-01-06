@@ -2,7 +2,6 @@ package com.lpiem.coderpropmarvelapp.data;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -31,11 +30,9 @@ import static com.lpiem.coderpropmarvelapp.View.activities.MainActivity.TAG;
 public class ReadFileTask extends AsyncTask<Object, Void, Integer> {
 
     private Context context;
-    private MainDisplayAdapter adapter;
-    private RecyclerView recyclerView;
     private List<ComicItem> comicItems = new ArrayList<>();
     private static final String url = "https://gateway.marvel.com:443/v1/public/comics/item?ts=1524161673&apikey=2fb3c607374cd614f32c819c48e9db0c&hash=4da7ecb9bd380ff6092e35da2a123cc7";
-
+    private MainDisplayAdapter adapter;
     private App app = App.application();
 
     @Override
@@ -44,7 +41,6 @@ public class ReadFileTask extends AsyncTask<Object, Void, Integer> {
         comicItems = (List<ComicItem>) params[1];
         context = (Context) params[2];
         adapter = (MainDisplayAdapter) params[3];
-        recyclerView = (RecyclerView) params[4];
         try {
             final InputStream inputStream = context.getResources().getAssets().open((String) params[0]);
 
@@ -84,8 +80,9 @@ public class ReadFileTask extends AsyncTask<Object, Void, Integer> {
                 builder.append(comicItem.getTitle() + "\n");
             }
 
-            adapter.setComicItemList(comicItems);
+            app.getComicsManager().setListComics(comicItems);
 
+            adapter.setComicItemList(app.getComicsManager().getListComics());
             adapter.notifyDataSetChanged();
         } else {
             Toast.makeText(context, "Failed to retrieve data", Toast.LENGTH_LONG).show();

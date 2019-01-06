@@ -1,7 +1,6 @@
 package com.lpiem.coderpropmarvelapp;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 
 import com.lpiem.coderpropmarvelapp.View.activities.MainDisplayAdapter;
 import com.lpiem.coderpropmarvelapp.data.ReadFileTask;
@@ -52,8 +51,8 @@ public class ComicsManager {
         return textToReturn.toString();
     }
 
-    public void callAsyncTask(String json, List<ComicItem> listComics, Context context, MainDisplayAdapter mainDisplayAdapter, RecyclerView rv){
-        new ReadFileTask().execute(json, listComics, context, mainDisplayAdapter, rv);
+    public void callAsyncTask(String json, List<ComicItem> listComics, Context context, MainDisplayAdapter mainDisplayAdapter){
+        new ReadFileTask().execute(json, listComics, context, mainDisplayAdapter);
     }
 
     public List<ComicItem> getListComics() {

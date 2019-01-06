@@ -14,12 +14,13 @@ import com.lpiem.coderpropmarvelapp.R;
 import com.lpiem.coderpropmarvelapp.model.ComicItem;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainDisplayAdapter extends RecyclerView.Adapter<MainDisplayAdapter.CustomViewHolder> {
 
     public static final String PAGE_COUNT = "Page count: ";
-    private List<ComicItem> comicItemList;
+    private List<ComicItem> comicItemList = new ArrayList<>();
     private ComicItem comicItem;
 
     public MainDisplayAdapter(List<ComicItem> comicItemList) {
@@ -61,7 +62,11 @@ public class MainDisplayAdapter extends RecyclerView.Adapter<MainDisplayAdapter.
 
     @Override
     public int getItemCount() {
+        if (comicItemList == null) {
+            return 0;
+        } else {
         return comicItemList.size();
+        }
     }
 
     class CustomViewHolder extends RecyclerView.ViewHolder {

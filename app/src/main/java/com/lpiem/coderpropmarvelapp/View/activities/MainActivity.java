@@ -13,26 +13,22 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.lpiem.coderpropmarvelapp.App;
+import com.lpiem.coderpropmarvelapp.ComicsManager;
 import com.lpiem.coderpropmarvelapp.R;
+import com.lpiem.coderpropmarvelapp.View.injections.ComicsListInterface;
 import com.lpiem.coderpropmarvelapp.View.presenters.ComicListPresenter;
 import com.lpiem.coderpropmarvelapp.model.ComicItem;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity implements ComicsListInterface {
 
     public static final String TAG = "MainActivity";
     public static final String SAMPLE_OK = "sample-ok.json";
     public static final String SAMPLE_KO = "sample-ko.json";
-    protected MainDisplayAdapter adapter;
     protected RecyclerView recyclerView;
     private App app = App.application();
+    private ComicsManager comicsManager;
     private ComicListPresenter comicListPresenter;
     private Toolbar toolbar;
-
-    private final List<ComicItem> comicItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,32 +45,13 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        adapter = new MainDisplayAdapter(comicItems);
-        recyclerView.setAdapter(adapter);
+
+        comicsManager = app.getComicsManager();
 
         // launching the AsynchTask
 
-        comicListPresenter = new ComicListPresenter(App.application().getComicsManager(), this, recyclerView, adapter);
+        comicListPresenter = new ComicListPresenter(comicsManager, this, this);
         comicListPresenter.updateView();
-        //app.getComicsManager().callAsyncTask(SAMPLE_OK, comicItems, getApplicationContext(), adapter, recyclerView);
-
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                ComicItem item = adapter.getComicItemList().get(position);
-                app.getComicsManager().setCurrentComics(item);
-                Log.d(TAG, "touchListener : " + item.toString());
-
-                comicListPresenter.goToDetailActivity(item);
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-                ComicItem item = adapter.getComicItemList().get(position);
-                Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
-            }
-        }));
-
 
     }
 
@@ -96,5 +73,27 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void update(final MainDisplayAdapter mainDisplayAdapter) {
+        recyclerView.setAdapter(mainDisplayAdapter);
+        mainDisplayAdapter.setComicItemList(comicsManager.getListComics());
 
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                ComicItem item = mainDisplayAdapter.getComicItemList().get(position);
+                comicsManager.setCurrentComics(item);
+                Log.d(TAG, "touchListener : " + item.toString());
+
+                comicListPresenter.goToDetailActivity(item);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                ComicItem item = mainDisplayAdapter.getComicItemList().get(position);
+                Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        }));
+
+    }
 }

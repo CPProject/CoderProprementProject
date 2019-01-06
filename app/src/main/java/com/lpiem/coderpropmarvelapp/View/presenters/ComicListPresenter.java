@@ -2,12 +2,12 @@ package com.lpiem.coderpropmarvelapp.View.presenters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
 
 import com.lpiem.coderpropmarvelapp.App;
 import com.lpiem.coderpropmarvelapp.ComicsManager;
 import com.lpiem.coderpropmarvelapp.View.activities.DetailComics;
 import com.lpiem.coderpropmarvelapp.View.activities.MainDisplayAdapter;
+import com.lpiem.coderpropmarvelapp.View.injections.ComicsListInterface;
 import com.lpiem.coderpropmarvelapp.model.ComicItem;
 
 import java.util.ArrayList;
@@ -18,21 +18,21 @@ import static com.lpiem.coderpropmarvelapp.View.activities.MainActivity.SAMPLE_O
 public class ComicListPresenter {
     private final ComicsManager comicsManager;
     private final Context context;
-    private final RecyclerView recyclerView;
     private final List<ComicItem> listComics;
     private final MainDisplayAdapter comicsListAdapter;
+    private ComicsListInterface comicsListInterface;
 
-    public ComicListPresenter(ComicsManager comicsManager, Context context, RecyclerView rv, MainDisplayAdapter adapter) {
+    public ComicListPresenter(ComicsManager comicsManager, Context context, ComicsListInterface comicsListInterface) {
         this.comicsManager = comicsManager;
         this.context = context;
+        this.comicsListInterface = comicsListInterface;
         listComics = new ArrayList<>();
-        recyclerView = rv;
-        comicsListAdapter = adapter;
+        comicsListAdapter = new MainDisplayAdapter(listComics);
     }
 
     public void updateView(){
-        comicsListAdapter.setComicItemList(listComics);
-        App.application().getComicsManager().callAsyncTask(SAMPLE_OK, listComics, context, comicsListAdapter, recyclerView);
+        comicsListInterface.update(comicsListAdapter);
+        App.application().getComicsManager().callAsyncTask(SAMPLE_OK, listComics, context, comicsListAdapter);
     }
 
     public void goToDetailActivity(ComicItem currentComic){
