@@ -1,6 +1,9 @@
 package com.lpiem.coderpropmarvelapp;
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
+import android.view.View;
+import android.widget.Toast;
 
 import com.lpiem.coderpropmarvelapp.View.activities.MainDisplayAdapter;
 import com.lpiem.coderpropmarvelapp.data.ReadFileTask;
@@ -54,8 +57,8 @@ public class ComicsManager {
         return textToReturn.toString();
     }
 
-    public void callAsyncTask(String json, List<ComicItem> listComics, Context context, MainDisplayAdapter mainDisplayAdapter){
-        new ReadFileTask().execute(json, listComics, context, mainDisplayAdapter);
+    public void callAsyncTask(String json, List<ComicItem> listComics, Context context, MainDisplayAdapter mainDisplayAdapter, View view){
+        new ReadFileTask().execute(json, listComics, context, mainDisplayAdapter, view);
     }
 
     public List<ComicItem> getListComics() {
@@ -102,5 +105,12 @@ public class ComicsManager {
         return currentComics.getUrl();
     }
 
-
+    public void errorDisplayer(ErrorType type, Context context, View view, String message) {
+        if(type == ErrorType.SNACK_BAR_ERROR) {
+            Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+            snackbar.show();
+        } else if (type == ErrorType.TOAST_ERROR) {
+            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+        }
+    }
 }

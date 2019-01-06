@@ -2,10 +2,11 @@ package com.lpiem.coderpropmarvelapp.data;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.constraint.ConstraintLayout;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.lpiem.coderpropmarvelapp.App;
+import com.lpiem.coderpropmarvelapp.ErrorType;
 import com.lpiem.coderpropmarvelapp.View.activities.MainDisplayAdapter;
 import com.lpiem.coderpropmarvelapp.model.ComicItem;
 import com.lpiem.coderpropmarvelapp.model.Creator;
@@ -29,10 +30,10 @@ public class ReadFileTask extends AsyncTask<Object, Void, Integer> {
 
     private Context context;
     private List<ComicItem> comicItems = new ArrayList<>();
-    private static final String url = "https://gateway.marvel.com:443/v1/public/comics/item?ts=1524161673&apikey=2fb3c607374cd614f32c819c48e9db0c&hash=4da7ecb9bd380ff6092e35da2a123cc7";
     private MainDisplayAdapter adapter;
     private App app = App.application();
-    private static final int REQUEST_READ_STORAGE = 0;
+    private ConstraintLayout constraintLayout;
+    public static final String ERROR_MESSAGE = "Failed to retrieve data";
 
     @Override
     protected Integer doInBackground(Object... params) {
@@ -40,6 +41,7 @@ public class ReadFileTask extends AsyncTask<Object, Void, Integer> {
         comicItems = (List<ComicItem>) params[1];
         context = (Context) params[2];
         adapter = (MainDisplayAdapter) params[3];
+        constraintLayout = (ConstraintLayout) params[4];
         try {
             final InputStream inputStream = context.getResources().getAssets().open((String) params[0]);
 
@@ -68,9 +70,6 @@ public class ReadFileTask extends AsyncTask<Object, Void, Integer> {
 
     @Override
     protected void onPostExecute(Integer result) {
-//            waiting.setVisibility(View.INVISIBLE);
-//            progressBar.setVisibility(View.GONE);
-
 
         if (result == 1) {
             Log.d(TAG, "onCreate: " + comicItems);
@@ -84,7 +83,8 @@ public class ReadFileTask extends AsyncTask<Object, Void, Integer> {
             adapter.setComicItemList(app.getComicsManager().getListComics());
             adapter.notifyDataSetChanged();
         } else {
-            Toast.makeText(context, "Failed to retrieve data", Toast.LENGTH_LONG).show();
+            //TODO: change ErrorType.SNACK_BAR_ERROR in ErrorType.TOAST_ERROR to permute the display method for error
+            app.getComicsManager().errorDisplayer(ErrorType.TOAST_ERROR, context, constraintLayout, ERROR_MESSAGE);
         }
     }
 
