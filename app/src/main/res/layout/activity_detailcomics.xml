@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/my_toolbar"/>
+
+    <TextView
+        android:id="@+id/Comictitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="title"
+        style="@style/TitleStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        tools:text="title" />
+
+    <ImageView
+        android:id="@+id/Comicimage"
+        android:layout_width="0dp"
+        android:layout_height="215dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/Comicsummary"
+        app:layout_constraintEnd_toStartOf="@+id/Comicsummary"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Comictitle"
+        app:layout_constraintVertical_bias="0.65"
+        app:srcCompat="@drawable/marvel_logo" />
+
+    <TextView
+        android:id="@+id/Comicsummary"
+        style="@style/DescriptionTvStyle"
+        android:scrollbars = "vertical"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:layout_width="0dp"
+        android:layout_height="330dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:minHeight="180dp"
+        android:overScrollMode="always"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Comicimage"
+        app:layout_constraintTop_toBottomOf="@+id/Comictitle"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque, libero eget efficitur accumsan, erat felis interdum dui, id malesuada metus sapien a ante. Phasellus quis maximus augue. Duis a imperdiet nisi, ut eleifend risus. Nullam fermentum nisi ex, at imperdiet diam rutrum nec." />
+
+    <TextView
+        android:id="@+id/Comicinformation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:text="informations"
+        style="@style/tvStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Comicsummary"
+        tools:text="informations" />
+
+    <TextView
+        android:id="@+id/Comiccredits"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:text="credits"
+        style="@style/tvStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Comicinformation"
+        tools:text="credits" />
+
+
+
+</android.support.constraint.ConstraintLayout>
