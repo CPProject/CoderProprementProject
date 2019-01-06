@@ -13,9 +13,10 @@ import com.lpiem.coderpropmarvelapp.model.ComicItem;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.lpiem.coderpropmarvelapp.View.activities.MainActivity.SAMPLE_OK;
-
 public class ComicListPresenter {
+
+    public static final String SAMPLE_OK = "sample-ok.json";
+    public static final String SAMPLE_KO = "sample-ko.json";
     private final ComicsManager comicsManager;
     private final Context context;
     private final List<ComicItem> listComics;
@@ -27,7 +28,7 @@ public class ComicListPresenter {
         this.context = context;
         this.comicsListInterface = comicsListInterface;
         listComics = new ArrayList<>();
-        comicsListAdapter = new MainDisplayAdapter(listComics);
+        comicsListAdapter = new MainDisplayAdapter(listComics, context);
     }
 
     public void updateView(){

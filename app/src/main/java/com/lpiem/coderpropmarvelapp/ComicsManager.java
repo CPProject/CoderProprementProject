@@ -14,7 +14,6 @@ public class ComicsManager {
     private ComicItem currentComics;
     private List<ComicItem> listComics;
 
-    // constructeur public
     public ComicsManager() {
     }
 

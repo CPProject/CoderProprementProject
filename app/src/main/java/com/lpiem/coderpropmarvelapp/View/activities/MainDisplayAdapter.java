@@ -1,18 +1,18 @@
 package com.lpiem.coderpropmarvelapp.View.activities;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.lpiem.coderpropmarvelapp.R;
 import com.lpiem.coderpropmarvelapp.model.ComicItem;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +22,11 @@ public class MainDisplayAdapter extends RecyclerView.Adapter<MainDisplayAdapter.
     public static final String PAGE_COUNT = "Page count: ";
     private List<ComicItem> comicItemList = new ArrayList<>();
     private ComicItem comicItem;
+    private Context context;
 
-    public MainDisplayAdapter(List<ComicItem> comicItemList) {
+    public MainDisplayAdapter(List<ComicItem> comicItemList, Context context) {
         this.comicItemList = comicItemList;
+        this.context = context;
     }
 
     public void setComicItemList(List<ComicItem> newList) {
@@ -33,6 +35,11 @@ public class MainDisplayAdapter extends RecyclerView.Adapter<MainDisplayAdapter.
 
     public List<ComicItem> getComicItemList() {
         return comicItemList;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
     }
 
     @NonNull
@@ -46,12 +53,13 @@ public class MainDisplayAdapter extends RecyclerView.Adapter<MainDisplayAdapter.
     public void onBindViewHolder(@NonNull CustomViewHolder customViewHolder, int i) {
         comicItem = comicItemList.get(i);
 
-        if (!TextUtils.isEmpty(comicItem.getImage())) {
-            Picasso.get().load(comicItem.getImage())
-                    .error(R.drawable.marvel_logo)
-                    .placeholder(R.drawable.marvel_logo)
-                    .into(customViewHolder.imageView);
-        }
+        Glide.with(context).load(comicItem.getImage()).into(customViewHolder.imageView);
+
+//        Picasso.get().load( "http://i.annihil.us/u/prod/marvel/i/mg/f/03/59e7b08528560.jpg")
+//                .error(R.drawable.marvel_logo)
+//                .placeholder(R.drawable.marvel_logo)
+//                .into(customViewHolder.imageView);
+
 
         customViewHolder.title.setText(Html.fromHtml(comicItem.getTitle()));
         customViewHolder.date.setText(Html.fromHtml(String.valueOf(comicItem.getFormatedDate())));

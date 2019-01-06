@@ -22,8 +22,6 @@ import com.lpiem.coderpropmarvelapp.model.ComicItem;
 public class MainActivity extends AppCompatActivity implements ComicsListInterface {
 
     public static final String TAG = "MainActivity";
-    public static final String SAMPLE_OK = "sample-ok.json";
-    public static final String SAMPLE_KO = "sample-ko.json";
     protected RecyclerView recyclerView;
     private App app = App.application();
     private ComicsManager comicsManager;
@@ -36,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements ComicsListInterfa
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbar);
-        //toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setTitle(R.string.app_name);
         setSupportActionBar(toolbar);
         getSupportActionBar().setSubtitle("Using ToolBar");
@@ -48,8 +45,6 @@ public class MainActivity extends AppCompatActivity implements ComicsListInterfa
 
         comicsManager = app.getComicsManager();
 
-        // launching the AsynchTask
-
         comicListPresenter = new ComicListPresenter(comicsManager, this, this);
         comicListPresenter.updateView();
 
@@ -57,12 +52,10 @@ public class MainActivity extends AppCompatActivity implements ComicsListInterfa
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //ajoute les entrées de menu_test à l'ActionBar
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
-    //gère le click sur une action de l'ActionBar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
