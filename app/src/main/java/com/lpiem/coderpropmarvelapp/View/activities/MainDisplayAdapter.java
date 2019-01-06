@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.lpiem.coderpropmarvelapp.R;
 import com.lpiem.coderpropmarvelapp.model.ComicItem;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,12 +53,10 @@ public class MainDisplayAdapter extends RecyclerView.Adapter<MainDisplayAdapter.
     public void onBindViewHolder(@NonNull CustomViewHolder customViewHolder, int i) {
         comicItem = comicItemList.get(i);
 
-        Glide.with(context).load(comicItem.getImage()).into(customViewHolder.imageView);
-
-//        Picasso.get().load( "http://i.annihil.us/u/prod/marvel/i/mg/f/03/59e7b08528560.jpg")
-//                .error(R.drawable.marvel_logo)
-//                .placeholder(R.drawable.marvel_logo)
-//                .into(customViewHolder.imageView);
+        Picasso.get().load( comicItem.getImage())
+                .error(R.drawable.marvel_logo)
+                .placeholder(R.drawable.marvel_logo)
+                .into(customViewHolder.imageView);
 
 
         customViewHolder.title.setText(Html.fromHtml(comicItem.getTitle()));

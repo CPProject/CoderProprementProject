@@ -23,4 +23,5 @@ public class App extends Application {
         this.comicsManager = new ComicsManager();
     }
 
+
 }

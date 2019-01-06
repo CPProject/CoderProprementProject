@@ -95,4 +95,5 @@ public class ComicsManager {
         return currentComics.getUrl();
     }
 
+
 }
