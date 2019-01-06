@@ -46,8 +46,6 @@ public class MainDisplayAdapter extends RecyclerView.Adapter<MainDisplayAdapter.
     public void onBindViewHolder(@NonNull CustomViewHolder customViewHolder, int i) {
         comicItem = comicItemList.get(i);
 
-
-
         if (!TextUtils.isEmpty(comicItem.getImage())) {
             Picasso.get().load(comicItem.getImage())
                     .error(R.drawable.marvel_logo)

@@ -13,10 +13,12 @@ public class ComicItem implements Serializable {
     private final String image;
     private final String diamondCode;
     private final Date date;
+    private final Double price;
     private final List<Creator> creators;
     private final int pageCount;
+    private final String url;
 
-    public ComicItem(String title, String description, String image, String diamondCode, Date date, List<Creator> creators, int pageCount) {
+    public ComicItem(String title, String description, String image, String diamondCode, Date date, List<Creator> creators, int pageCount, Double price, String url) {
         this.title = title;
         this.description = description;
         this.image = image;
@@ -24,6 +26,20 @@ public class ComicItem implements Serializable {
         this.date = date;
         this.creators = creators;
         this.pageCount = pageCount;
+        this.price = price;
+        this.url = url;
+    }
+
+    private Double getPrice() {
+        return price;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getFormattedPrice() {
+        return getPrice().toString() + " $";
     }
 
     public String getTitle() {

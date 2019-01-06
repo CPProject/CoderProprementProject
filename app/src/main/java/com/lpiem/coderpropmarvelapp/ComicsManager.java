@@ -41,11 +41,12 @@ public class ComicsManager {
 
     public String getCurrentComicsInformations(){
         StringBuilder textToReturn = new StringBuilder();
-        textToReturn.append(currentComics.getFormatedDate()).append("\n");
+        textToReturn.append(currentComics.getFormatedDate()).append("\nPrice: ");
         textToReturn
-                .append(" , ")
+                .append(currentComics.getFormattedPrice())
+                .append(" , Pages: ")
                 .append(currentComics.getPageCount())
-                .append(" - ")
+                .append(" - DiamondCode: ")
                 .append(currentComics.getDiamondCode());
 
         return textToReturn.toString();
@@ -89,6 +90,10 @@ public class ComicsManager {
 
     public List<Creator> getComicsCreators() {
         return currentComics.getCreators();
+    }
+
+    public String getWebUrl() {
+        return currentComics.getUrl();
     }
 
 }
