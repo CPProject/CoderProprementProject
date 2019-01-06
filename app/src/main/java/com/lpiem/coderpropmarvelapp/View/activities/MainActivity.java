@@ -1,6 +1,7 @@
 package com.lpiem.coderpropmarvelapp.View.activities;
 
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements ComicsListInterfa
     private ComicsManager comicsManager;
     private ComicListPresenter comicListPresenter;
     private Toolbar toolbar;
+    private ConstraintLayout constraintLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements ComicsListInterfa
         setSupportActionBar(toolbar);
         getSupportActionBar().setSubtitle("Welcome !");
 
+
+        constraintLayout = findViewById(R.id.constraint_layout);
         recyclerView = findViewById(R.id.rv);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -46,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements ComicsListInterfa
         comicsManager = app.getComicsManager();
 
         comicListPresenter = new ComicListPresenter(comicsManager, this, this);
-        comicListPresenter.updateView();
+        comicListPresenter.updateView(constraintLayout);
 
     }
 

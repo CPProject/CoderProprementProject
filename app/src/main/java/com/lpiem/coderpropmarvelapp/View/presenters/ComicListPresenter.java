@@ -2,6 +2,7 @@ package com.lpiem.coderpropmarvelapp.View.presenters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 
 import com.lpiem.coderpropmarvelapp.App;
 import com.lpiem.coderpropmarvelapp.ComicsManager;
@@ -31,9 +32,10 @@ public class ComicListPresenter {
         comicsListAdapter = new MainDisplayAdapter(listComics, context);
     }
 
-    public void updateView(){
+    public void updateView(View view){
         comicsListInterface.update(comicsListAdapter);
-        App.application().getComicsManager().callAsyncTask(SAMPLE_OK, listComics, context, comicsListAdapter);
+        //TODO: change SAMPLE_OK into SAMPLE_KO to display error
+        App.application().getComicsManager().callAsyncTask(SAMPLE_OK, listComics, context, comicsListAdapter, view);
     }
 
     public void goToDetailActivity(ComicItem currentComic){
